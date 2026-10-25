@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zenith Cutter - Controle de verdade</title>
+  <meta name="description" content="Gestão inteligente para operações de corte industrial.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/logo-mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a href="./" class="brand" aria-label="Zenith Cutter, início">
+        <span class="mark" aria-hidden="true"></span>
+        <span>ZENITH <small>CUTTER</small></span>
+      </a>
+      <nav aria-label="Principal">
+        <a href="./#solucao">Solução</a>
+        <a href="./#processo">Como funciona</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section thanks center">
+    <div class="wrap">
+      <h1>Quase lá!</h1>
+      <p class="lead">Estamos abrindo o WhatsApp para você falar com nosso time. Você será redirecionado automaticamente em alguns segundos.</p>
+
+      <div class="card">
+        <p class="card-title">Enquanto você aguarda…</p>
+        <p>Para agilizar seu atendimento, envie esta mensagem:</p>
+        <blockquote id="msg">Olá! Vim pelo site Zenith Dev e gostaria de saber mais sobre o sistema.</blockquote>
+        <button type="button" class="btn btn-ghost" id="copy">Copiar mensagem</button>
+      </div>
+
+      <p class="eyebrow countdown" aria-live="polite">Redirecionando em <strong id="count">3</strong></p>
+      <a id="wa" class="btn" href="https://wa.me/5516993717090">Abrir WhatsApp agora</a>
+      <p class="hint">Se o WhatsApp não abrir automaticamente, use o botão acima.</p>
+    </div>
+  </main>
+
+  <script>
+    const message = document.getElementById('msg').textContent;
+    const wa = document.getElementById('wa');
+    wa.href += '?text=' + encodeURIComponent(message);
+
+    document.getElementById('copy').addEventListener('click', async (event) => {
+      try {
+        await navigator.clipboard.writeText(message);
+        event.target.textContent = 'Mensagem copiada';
+      } catch {
+        event.target.textContent = 'Não foi possível copiar';
+      }
+    });
+
+    let seconds = 3;
+    const count = document.getElementById('count');
+    const timer = setInterval(() => {
+      seconds -= 1;
+      count.textContent = seconds;
+      if (seconds === 0) {
+        clearInterval(timer);
+        location.href = wa.href;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>
